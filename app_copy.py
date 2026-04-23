@@ -279,12 +279,6 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
         padding: 0.3rem 0.8rem !important;
     }
 
-    /* Stack columns vertically (Streamlit fix) */
-    div[data-testid="column"] {
-        width: 100% !important;
-        flex: 100% !important;
-    }
-
     /* Fix Analyze/Clear buttons */
     .action-btn div[data-testid="stButton"] button {
         width: 100% !important;
@@ -305,6 +299,29 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
     [data-testid="stFileUploader"] {
         padding: 1.5rem 1rem !important;
     }
+
+    /* ===== NAVBAR FIX (KEEP INLINE ON MOBILE) ===== */
+    .navbar {
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Override Streamlit column stacking ONLY for navbar row */
+    div[data-testid="stHorizontalBlock"]:first-of-type {
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
+    
+    /* Prevent buttons from stacking */
+    div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] {
+        display: inline-block !important;
+    }
+    
+    /* Make buttons smaller so they fit */
+    div[data-testid="stHorizontalBlock"]:first-of-type button {
+        font-size: 0.8rem !important;
+        padding: 0.3rem 0.7rem !important;
+        white-space: nowrap !important;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -314,7 +331,7 @@ if "page" not in st.session_state:
     st.session_state.page = "Home"
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
-col_brand, col_spacer, col_nav = st.columns([3, 4, 2])
+col_brand, col_spacer, col_nav = st.columns([3, 2, 2])
 
 with col_brand:
     st.markdown('<div class="navbar-brand">🧠 <span>AI-PD</span></div>', unsafe_allow_html=True)
