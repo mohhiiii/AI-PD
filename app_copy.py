@@ -300,27 +300,29 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
         padding: 1.5rem 1rem !important;
     }
 
-    /* ===== NAVBAR FIX (KEEP INLINE ON MOBILE) ===== */
+    /* Stack navbar into 2 clean rows */
     .navbar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+
+    /* Keep brand on top */
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+
+    /* Make nav buttons row */
+    div[data-testid="stHorizontalBlock"] {
         flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        gap: 8px;
     }
-    
-    /* Override Streamlit column stacking ONLY for navbar row */
-    div[data-testid="stHorizontalBlock"]:first-of-type {
-        flex-wrap: nowrap !important;
-        align-items: center !important;
-    }
-    
-    /* Prevent buttons from stacking */
-    div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] {
-        display: inline-block !important;
-    }
-    
-    /* Make buttons smaller so they fit */
-    div[data-testid="stHorizontalBlock"]:first-of-type button {
-        font-size: 0.8rem !important;
-        padding: 0.3rem 0.7rem !important;
-        white-space: nowrap !important;
+
+    /* Buttons readable */
+    div[data-testid="stHorizontalBlock"] button {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.9rem !important;
     }
 }
 </style>
