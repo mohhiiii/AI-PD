@@ -312,9 +312,14 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
     div[data-testid="stHorizontalBlock"] {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: nowrap !important;
+        flex-wrap: wrap !important;
         justify-content: flex-start !important;
         gap: 8px;
+    }
+
+    /* Prevent buttons from stretching */
+    div[data-testid="stHorizontalBlock"] > div {
+        flex: unset !important;
     }
     
     /* Prevent button overflow */
@@ -343,35 +348,37 @@ if "page" not in st.session_state:
     st.session_state.page = "Home"
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
-col_brand, col_spacer, col_nav = st.columns([3, 1, 2])
+st.markdown('<div class="navbar">', unsafe_allow_html=True)
 
-with col_brand:
-    st.markdown('<div class="navbar-brand">🧠 <span>AI-PD</span></div>', unsafe_allow_html=True)
+# Brand
+st.markdown('<div class="navbar-brand">🧠 <span>AI-PD</span></div>', unsafe_allow_html=True)
 
-with col_nav:
-    nav_c1, nav_c2 = st.columns(2)
-    with nav_c1:
-        home_active = st.session_state.page == "Home"
-        if st.button(
-            "Home",
-            key="nav_home",
-            use_container_width=True,
-            type="primary" if home_active else "secondary"
-        ):
-            st.session_state.page = "Home"
-            st.rerun()
-    with nav_c2:
-        about_active = st.session_state.page == "About"
-        if st.button(
-            "About",
-            key="nav_about",
-            use_container_width=True,
-            type="primary" if about_active else "secondary"
-        ):
-            st.session_state.page = "About"
-            st.rerun()
+# Buttons row
+btn_col1, btn_col2 = st.columns([1, 1])
 
-st.markdown("<hr style='margin-top:0.3rem; margin-bottom:1.5rem;'>", unsafe_allow_html=True)
+with btn_col1:
+    home_active = st.session_state.page == "Home"
+    if st.button(
+        "Home",
+        key="nav_home",
+        use_container_width=True,
+        type="primary" if home_active else "secondary"
+    ):
+        st.session_state.page = "Home"
+        st.rerun()
+
+with btn_col2:
+    about_active = st.session_state.page == "About"
+    if st.button(
+        "About",
+        key="nav_about",
+        use_container_width=True,
+        type="primary" if about_active else "secondary"
+    ):
+        st.session_state.page = "About"
+        st.rerun()
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  HOME PAGE
