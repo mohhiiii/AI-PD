@@ -267,10 +267,22 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
         padding: 0 10px;
     }
 
+    /* Allow nav buttons to wrap instead of overflow */
+    div[data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 6px;
+    }
+
     /* Keep nav buttons clean */
     div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
         font-size: 0.8rem !important;
         padding: 0.3rem 0.8rem !important;
+    }
+
+    /* Stack columns vertically (Streamlit fix) */
+    div[data-testid="column"] {
+        width: 100% !important;
+        flex: 100% !important;
     }
 
     /* Fix Analyze/Clear buttons */
@@ -293,52 +305,6 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
     [data-testid="stFileUploader"] {
         padding: 1.5rem 1rem !important;
     }
-
-    /* ===== FINAL NAVBAR FIX (STABLE) ===== */
-
-    /* Stack navbar vertically */
-    .navbar {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 6px;
-    }
-    
-    /* Keep brand readable */
-    .navbar-brand {
-        font-size: 1.2rem !important;
-    }
-    
-    /* Force nav buttons into one clean row */
-    div[data-testid="stHorizontalBlock"] {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: flex-start !important;
-        gap: 8px;
-    }
-
-    /* Prevent buttons from stretching */
-    div[data-testid="stHorizontalBlock"] > div {
-        flex: unset !important;
-    }
-    
-    /* Prevent button overflow */
-    div[data-testid="stHorizontalBlock"] button {
-        font-size: 0.85rem !important;
-        padding: 0.4rem 0.8rem !important;
-        white-space: nowrap !important;
-    }
-}
-/* Active nav button glow */
-div[data-testid="stButton"] button[kind="primary"] {
-    background: linear-gradient(135deg, #06b6d4, #2563eb) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 0 10px rgba(6,182,212,0.6) !important;
-}
-
-div[data-testid="stButton"] button[kind="primary"]:hover {
-    transform: scale(1.05) !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -348,37 +314,23 @@ if "page" not in st.session_state:
     st.session_state.page = "Home"
 
 # ─── Navbar ──────────────────────────────────────────────────────────────────
-st.markdown('<div class="navbar">', unsafe_allow_html=True)
+col_brand, col_spacer, col_nav = st.columns([3, 4, 2])
 
-# Brand
-st.markdown('<div class="navbar-brand">🧠 <span>AI-PD</span></div>', unsafe_allow_html=True)
+with col_brand:
+    st.markdown('<div class="navbar-brand">🧠 <span>AI-PD</span></div>', unsafe_allow_html=True)
 
-# Buttons row
-btn_col1, btn_col2 = st.columns([1, 1])
+with col_nav:
+    nav_c1, nav_c2 = st.columns(2)
+    with nav_c1:
+        if st.button("Home", key="nav_home"):
+            st.session_state.page = "Home"
+            st.rerun()
+    with nav_c2:
+        if st.button("About", key="nav_about"):
+            st.session_state.page = "About"
+            st.rerun()
 
-with btn_col1:
-    home_active = st.session_state.page == "Home"
-    if st.button(
-        "Home",
-        key="nav_home",
-        use_container_width=True,
-        type="primary" if home_active else "secondary"
-    ):
-        st.session_state.page = "Home"
-        st.rerun()
-
-with btn_col2:
-    about_active = st.session_state.page == "About"
-    if st.button(
-        "About",
-        key="nav_about",
-        use_container_width=True,
-        type="primary" if about_active else "secondary"
-    ):
-        st.session_state.page = "About"
-        st.rerun()
-
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown("<hr style='margin-top:0.3rem; margin-bottom:1.5rem;'>", unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  HOME PAGE
