@@ -306,6 +306,52 @@ hr { border-color: rgba(100, 116, 139, 0.3); }
         padding: 1.5rem 1rem !important;
     }
 }
+            
+* ===== CARD HOVER EFFECT ===== */
+.card {
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* ===== PAGE FADE-IN ===== */
+.stApp {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+            
+/* ===== FILE UPLOADER HOVER ===== */
+[data-testid="stFileUploader"] {
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+    border-color: #22d3ee !important;
+    background: rgba(30,41,59,0.75) !important;
+}
+            
+/* ===== RESULT REVEAL ANIMATION ===== */
+.reveal {
+    animation: revealFade 0.5s ease forwards;
+}
+
+@keyframes revealFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -429,7 +475,7 @@ if st.session_state.page == "Home":
 
         elif prediction:
             st.markdown(f"""
-            <div class="result-positive">
+            <div class="result-positive reveal">
                 <div class="result-title" style="color:#f87171;">⚠️ Parkinson's Indicators Detected</div>
                 <div style="color:#fca5a5; font-size:1rem;">Confidence: {confidence*100:.1f}%</div>
                 <div style="color:#fca5a5; margin-top:0.5rem; font-size:0.9rem;">{explanation}</div>
@@ -438,7 +484,7 @@ if st.session_state.page == "Home":
 
         else:
             st.markdown(f"""
-            <div class="result-negative">
+            <div class="result-negative reveal">
                 <div class="result-title" style="color:#4ade80;">✅ No Parkinson's Indicators</div>
                 <div style="color:#86efac; font-size:1rem;">Confidence: {confidence*100:.1f}%</div>
                 <div style="color:#86efac; margin-top:0.5rem; font-size:0.9rem;">{explanation}</div>
