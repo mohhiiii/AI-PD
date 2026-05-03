@@ -476,72 +476,21 @@ if st.session_state.page == "Home":
         elif prediction:
             st.markdown(f"""
             <div class="result-positive reveal">
-            
-                <div class="result-title" style="color:#f87171;">
-                    ⚠️ Parkinson's Indicators Detected
-                </div>
-            
-                <div style="color:#fca5a5; font-size:1rem;">
-                    Confidence: {confidence*100:.1f}%
-                </div>
-            
-                <div style="color:#fca5a5; margin-top:0.6rem; font-size:0.9rem; line-height:1.6; text-align:left;">
-            
-                    <strong>🧠 AI Insight:</strong><br>
-                    {explanation}<br><br>
-            
-                    <strong>📊 Interpretation:</strong><br>
-                    The uploaded spiral shows irregular stroke patterns and tremor-like oscillations, 
-                    which are commonly associated with early-stage Parkinson’s motor symptoms.<br><br>
-            
-                    <strong>⚙️ What the model analyzed:</strong><br>
-                    • Stroke smoothness and continuity<br>
-                    • Frequency and amplitude of tremors<br>
-                    • Spatial consistency of spiral loops<br><br>
-            
-                    <strong>📌 What this means:</strong><br>
-                    A higher confidence score indicates a stronger similarity to patterns observed in 
-                    Parkinson’s-affected samples. This suggests that further clinical evaluation may be beneficial.
-            
-                </div>
-            
+                <div class="result-title" style="color:#f87171;">⚠️ Parkinson's Indicators Detected</div>
+                <div style="color:#fca5a5; font-size:1rem;">Confidence: {confidence*100:.1f}%</div>
+                <div style="color:#fca5a5; margin-top:0.5rem; font-size:0.9rem;">{explanation}</div>
             </div>
             """, unsafe_allow_html=True)
-
+    
         else:
             st.markdown(f"""
             <div class="result-negative reveal">
-            
-                <div class="result-title" style="color:#4ade80;">
-                    ✅ No Parkinson's Indicators
-                </div>
-            
-                <div style="color:#86efac; font-size:1rem;">
-                    Confidence: {confidence*100:.1f}%
-                </div>
-            
-                <div style="color:#86efac; margin-top:0.6rem; font-size:0.9rem; line-height:1.6; text-align:left;">
-            
-                    <strong>🧠 AI Insight:</strong><br>
-                    {explanation}<br><br>
-            
-                    <strong>📊 Interpretation:</strong><br>
-                    The spiral demonstrates smooth and consistent stroke patterns with minimal 
-                    tremor-related distortion, which is typical of stable motor control.<br><br>
-            
-                    <strong>⚙️ What the model analyzed:</strong><br>
-                    • Uniform curvature across the spiral<br>
-                    • Low-frequency variation in stroke<br>
-                    • Consistency in spatial structure<br><br>
-            
-                    <strong>📌 What this means:</strong><br>
-                    No significant Parkinsonian indicators are detected. However, this tool is intended 
-                    for screening only and does not replace professional medical diagnosis.
-            
-                </div>
-            
+                <div class="result-title" style="color:#4ade80;">✅ No Parkinson's Indicators</div>
+                <div style="color:#86efac; font-size:1rem;">Confidence: {confidence*100:.1f}%</div>
+                <div style="color:#86efac; margin-top:0.5rem; font-size:0.9rem;">{explanation}</div>
             </div>
             """, unsafe_allow_html=True)
+
 
         st.markdown("""
         <div class="disclaimer-box" style="margin-top:1rem;">
