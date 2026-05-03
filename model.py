@@ -64,15 +64,33 @@ def predict_spiral(image):
         confidence = confidence.item()
         predicted = predicted.item()
 
-        if confidence>0.7 and predicted==1:
-
+        if confidence > 0.7 and predicted == 1:
+        
             prediction = True
-            explanation = "Irregular spiral stroke patterns detected."
-
+        
+            if confidence > 0.85:
+                explanation = (
+                    "The drawing exhibits strong tremor-related irregularities and inconsistent stroke patterns, "
+                    "closely matching Parkinsonian motor characteristics."
+                )
+            else:
+                explanation = (
+                    "The drawing shows moderate irregularities in stroke smoothness and tremor-like variations, "
+                    "which may indicate early-stage Parkinsonian patterns."
+                )
+        
         else:
-
+    
             prediction = False
-            explanation = "Spiral pattern appears regular."
+        
+            if confidence > 0.7:
+                explanation = (
+                    "The spiral appears highly consistent and smooth, with stable motor control and minimal variation."
+                )
+            else:
+                explanation = (
+                    "The drawing appears generally stable with minor natural variations, which are within normal limits."
+                )
 
         return prediction, confidence, explanation
 
